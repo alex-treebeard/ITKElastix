@@ -10,18 +10,17 @@ jobs:
         with:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          BINDER_CACHE: true
 
   test_nbs:
     runs-on: ubuntu-latest
-    container: alextreebeard/ITKElastix:latest
+    container: alextreebeard/itkelastix:latest
     steps:
       - uses: treebeardtech/treebeard@nbmake-integ
         with:
           notebooks: examples/*.ipynb
   test_nbs2:
     runs-on: ubuntu-latest
-    container: alextreebeard/ITKElastix:latest
+    container: alextreebeard/itkelastix:latest
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
       - run: pytest --nbmake -n=auto
