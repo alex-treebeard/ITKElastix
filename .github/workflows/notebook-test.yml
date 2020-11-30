@@ -6,6 +6,7 @@ jobs:
   build_image:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: jupyterhub/repo2docker-action@master
         with:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
