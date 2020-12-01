@@ -15,7 +15,7 @@ jobs:
   test_nbs:
     runs-on: ubuntu-latest
     container: alextreebeard/itkelastix:latest
-    needs: [build_image]
+    # needs: [build_image]
     steps:
       - uses: treebeardtech/treebeard@nbmake-integ
         with:
@@ -23,7 +23,7 @@ jobs:
   test_nbs2:
     runs-on: ubuntu-latest
     container: alextreebeard/itkelastix:latest
-    needs: [build_image]
+    # needs: [build_image]
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
       - run: pytest --nbmake -n=auto
