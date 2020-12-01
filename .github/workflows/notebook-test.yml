@@ -21,9 +21,13 @@ jobs:
         with:
           notebooks: examples/*.ipynb
           debug: true
+          path: /home/jovyan
   test_nbs2:
     runs-on: ubuntu-latest
     container: alextreebeard/itkelastix:latest
+    defaults:
+      run:
+        working-directory: /home/jovyan
     # needs: [build_image]
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
