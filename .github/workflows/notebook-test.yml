@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: jupyterhub/repo2docker-action@master
-        with:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      # - uses: jupyterhub/repo2docker-action@master
+      #   with:
+      #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   test_nbs:
     runs-on: ubuntu-latest
@@ -20,10 +20,13 @@ jobs:
       - uses: treebeardtech/treebeard@nbmake-integ
         with:
           notebooks: examples/*.ipynb
+          debug: true
   test_nbs2:
     runs-on: ubuntu-latest
     container: alextreebeard/itkelastix:latest
     # needs: [build_image]
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
+      - run: pwd
+      - run: ls -la
       - run: pytest --nbmake -n=auto
