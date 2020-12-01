@@ -31,6 +31,11 @@ jobs:
     # needs: [build_image]
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
+      - run: |
+          python -m ipykernel install --user --name elastixenv
+          python -m ipykernel install --user --name elastixenv2
+          python -m ipykernel install --user --name itktestenvdebug
+
       - run: pwd
       - run: ls -la
       - run: pytest --nbmake -n=auto
