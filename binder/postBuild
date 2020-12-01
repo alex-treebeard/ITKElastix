@@ -1,6 +1,8 @@
 #!/bin/bash
 
-
+python -m ipykernel install --user --name elastixenv
+python -m ipykernel install --user --name elastixenv2
+python -m ipykernel install --user --name itktestenvdebug
 
 # jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 --dev-build=False --minimize=False
 # jupyter labextension install jupyter-matplotlib jupyterlab-datawidgets itkwidgets --dev-build=False --minimize=False

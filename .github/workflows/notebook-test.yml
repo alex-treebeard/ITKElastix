@@ -7,23 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # - uses: jupyterhub/repo2docker-action@master
-      #   with:
-      #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - uses: jupyterhub/repo2docker-action@master
+        with:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   test_nbs:
     runs-on: ubuntu-latest
     container:
       image: alextreebeard/itkelastix:latest
-      options: --user jovyan -w /home/jovyan -e "HOME=/home/jovyan"
-    # needs: [build_image]
+      options: --user jovyan -w /home/jovyan
+    needs: [build_image]
     steps:
-      - run: whoami
-      - run: |
-          python -m ipykernel install --user --name elastixenv
-          python -m ipykernel install --user --name elastixenv2
-          python -m ipykernel install --user --name itktestenvdebug
+      - run: pwd
       - uses: treebeardtech/treebeard@nbmake-integ
         with:
           notebooks: examples/*.ipynb
@@ -34,14 +30,9 @@ jobs:
       image: alextreebeard/itkelastix:latest
       options: --user jovyan
       
-    # needs: [build_image]
+    needs: [build_image]
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
-      - run: |
-          python -m ipykernel install --user --name elastixenv
-          python -m ipykernel install --user --name elastixenv2
-          python -m ipykernel install --user --name itktestenvdebug
-
       - run: pwd
       - run: ls -la
       - run: pytest --nbmake -n=auto
