@@ -16,9 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: alextreebeard/itkelastix:latest
-      options: --user jovyan
+      options: --user jovyan -w /home/jovyan
     # needs: [build_image]
     steps:
+      - run: whoami
       - run: |
           python -m ipykernel install --user --name elastixenv
           python -m ipykernel install --user --name elastixenv2
