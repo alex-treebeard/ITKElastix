@@ -14,25 +14,6 @@ jobs:
 
   test_nbs:
     runs-on: ubuntu-latest
-    container:
-      image: alextreebeard/itkelastix:latest
-      options: --user jovyan -w /home/jovyan
     needs: [build_image]
     steps:
-      - run: pwd
-      - uses: treebeardtech/treebeard@nbmake-integ
-        with:
-          notebooks: examples/*.ipynb
-          debug: true
-  test_nbs2:
-    runs-on: ubuntu-latest
-    container:
-      image: alextreebeard/itkelastix:latest
-      options: --user jovyan
-      
-    needs: [build_image]
-    steps:
-      - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
-      - run: pwd
-      - run: ls -la
-      - run: pytest --nbmake -n=auto
+      - run: docker run alextreebeard/itkelastix:latest pytest --nbmake examples/*ipynb
