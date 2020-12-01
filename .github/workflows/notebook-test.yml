@@ -3,7 +3,7 @@ name: Notebook tests
 on: [push, pull_request]
 
 jobs:
-  build_image:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,6 +11,7 @@ jobs:
         with:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: |
+      - name: Test
+        run: |
           SHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
           docker run alextreebeard/itkelastix:${SHA} pytest -n=auto --nbmake examples
