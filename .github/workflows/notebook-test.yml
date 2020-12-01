@@ -11,9 +11,6 @@ jobs:
         with:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-  test_nbs:
-    runs-on: ubuntu-latest
-    needs: [build_image]
-    steps:
-      - run: docker run alextreebeard/itkelastix:latest pytest -n=auto --nbmake examples
+      - run: |
+          SHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
+          docker run alextreebeard/itkelastix:${SHA} pytest -n=auto --nbmake examples

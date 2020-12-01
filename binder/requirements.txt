@@ -18,3 +18,4 @@ QtPy==1.9.0
 voila
 pytest_tornasync # https://github.com/voila-dashboards/voila/issues/728
 git+https://github.com/treebeardtech/nbmake.git@integtest
+pytest-xdist
