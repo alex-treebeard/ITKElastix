@@ -3,19 +3,19 @@ name: Notebook tests
 on: [push, pull_request]
 
 jobs:
-  build_image:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: jupyterhub/repo2docker-action@master
-        with:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  # build_image:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: jupyterhub/repo2docker-action@master
+  #       with:
+  #         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  #         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   test_nbs:
     runs-on: ubuntu-latest
     container: alextreebeard/itkelastix:latest
-    needs: [build_image]
+    # needs: [build_image]
     steps:
       - uses: treebeardtech/treebeard@nbmake-integ
         with:
@@ -23,7 +23,7 @@ jobs:
   test_nbs2:
     runs-on: ubuntu-latest
     container: alextreebeard/itkelastix:latest
-    needs: [build_image]
+    # needs: [build_image]
     steps:
       - run: pip install pytest pytest-xdist "git+https://github.com/treebeardtech/nbmake.git@integtest"
       - run: pytest --nbmake -n=auto
